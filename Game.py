@@ -11,7 +11,7 @@ class Game(object):
     ''' Game Class '''
     def __init__(self):
         self.__m_brunning = True
-        self.__turn = 0
+        self.__m_turn = 0
 
     def __str__(self):
         rep = "<Battleship Game>"
@@ -28,7 +28,11 @@ class Game(object):
         m_pBoard = Board.Board(self.BOARD_TYPE["Player"])
         m_eBoard = Board.Board(self.BOARD_TYPE["Enemy"])
         while self.__isRunning:
-            print(m_pBoard)
-            print(m_eBoard)
-            ++self.__turn
-            self.__setRunning(False)
+            print("Player Board: \n{}".format(m_pBoard))
+            print("Enemy Board: \n{}".format(m_eBoard))
+            print("Turn is {} Please enter 1 to fire or 0 to quit".format(self.__m_turn), end = ': ')
+            uInput = input()
+            if int(uInput) == 0:
+                self.__setRunning(False)
+            else:
+                self.__m_turn += 1
