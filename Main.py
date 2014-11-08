@@ -1,5 +1,10 @@
+#Main function
+
+import Game
+
 def main():
-    print("a")
+    TheGame = Game.Game()
+    TheGame.run()
 
 if __name__ == "__main__":
     main()
