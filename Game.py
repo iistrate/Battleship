@@ -1,9 +1,8 @@
 #
 #   Game class
 #   has 2 boards, one for the player one for the Ai
-
+#
 import Board
-
 class Game(object):
     #constants
     BOARD_TYPE = dict(Player = 0, Enemy = 1)

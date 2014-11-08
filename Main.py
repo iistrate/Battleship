@@ -1,5 +1,6 @@
-#Main function
-
+#
+# create and run game
+#
 import Game
 
 def main():

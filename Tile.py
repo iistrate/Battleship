@@ -1,3 +1,6 @@
+#
+#   Tile 0, 1, X or W
+#
 class Tile(object):
     '''One tile'''
     TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
