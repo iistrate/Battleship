@@ -1,5 +1,5 @@
 #
-#   Tile 0, 1, X or W
+# Tile 0, 1, X or W
 #
 
 TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)

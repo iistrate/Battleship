@@ -1,6 +1,6 @@
 #
-#   Game class
-#   has 2 boards, one for the player one for the Ai
+# Game class
+# has 2 boards, one for the player one for the Ai
 #
 import Board
 
@@ -8,9 +8,6 @@ BOARD_TYPE = dict(Player = 0, Enemy = 1)
 TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
 
 class Game(object):
-    #constants
-
-
     ''' Game Class '''
     def __init__(self):
         self.__m_brunning = True

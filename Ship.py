@@ -1,5 +1,5 @@
 #
-# Ship object
+# Ship
 #
 SHIP_TYPE = dict(Carrier =  5, Battleship = 4, Cruiser = 3, Destroyer = 2, Submarine = 1)
 class Ship(object):

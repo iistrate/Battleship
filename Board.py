@@ -1,6 +1,7 @@
 #
 # Board of tiles
-#
+# has tiles and ships
+
 import Tile
 import Ship
 
@@ -24,24 +25,34 @@ class Board(object):
             for j in range(0, self.__getWidth):
                 #init all to blank
                 self.m_Board[i].append(Tile.Tile(TILE_TYPE['EMPTY']))
-        if type == BOARD_TYPE["Player"]:
+        if type == BOARD_TYPE["Player"] or type == BOARD_TYPE["Enemy"]:
             ships = ["Carrier", "Battleship", "Cruiser", "Destroyer", "Submarine"]
-            pShips = list()
+            aiships = [(0,0,"v"), (1,2,"h"), (4,5,"v"), (3,4,"h"), (0,8,"v")]
+            Ships = list()
             while len(ships) > 0:
-                print(self)
-                uInput = input("Place {} horizontal or vertical example A5H or A5V: ".format(ships[-1]))
-                posY = self.letterToNumber(uInput[0])
-                posX = int(uInput[1])
-                orientation = uInput[2].lower()
+                if type == BOARD_TYPE["Player"]:
+                    print(self)
+                    uInput = input("Place {} horizontal/vertical example D4H or D4V: ".format(ships[-1]))
+                    posY = self.letterToNumber(uInput[0])
+                    posX = int(uInput[1])
+                    orientation = uInput[2].lower()
+                else:
+                    ship = aiships.pop()
+                    posY = ship[0]
+                    posX = ship[1]
+                    orientation = ship[2]
+#test enemy positions placement 
+#                    print(ship)
+#end test
                 #add ship to fleet
-                pShips.append(Ship.Ship(ships[-1], posY, posX, orientation))
+                Ships.append(Ship.Ship(ships[-1], posY, posX, orientation))
                 #add on map
-                size = pShips[-1].getHitpoints
+                size = Ships[-1].getHitpoints
                 while size > 0:
                     if orientation == "h":
-                        self.m_Board[posY][posX+size].setTile('1')
-                    else:
-                        self.m_Board[posY+size][posX].setTile('1')
+                        self.m_Board[posY][posX+size].setTile(TILE_TYPE['SHIP_HULL'])
+                    else:                        
+                        self.m_Board[posY+size][posX].setTile(TILE_TYPE['SHIP_HULL'])
                     size -= 1
                 #remove last item from list
                 ships.pop(-1)
