@@ -9,13 +9,13 @@ class Tile(object):
     #constructor
     def __init__(self, type):
         if type == TILE_TYPE['EMPTY']:
-            self.__m_type = '0'
+            self.__m_type = ('0', TILE_TYPE['EMPTY'])
         elif type == TILE_TYPE['SHIP_HULL']:
-            self.__m_type = '1'
+            self.__m_type = ('1', TILE_TYPE['SHIP_HULL'])
         elif type == TILE_TYPE['HIT']:
-            self.__m_type = 'X'
+            self.__m_type = ('X', TILE_TYPE['HIT'])
         elif getType == TILE_TYPE['MISS']:
-            self.__m_type = 'W'
+            self.__m_type = ('W', TILE_TYPE['MISS']) 
     #rep for print
     def __str__(self):
         rep = ""
@@ -42,4 +42,3 @@ class Tile(object):
     @property
     def getType(self):
         return self.__m_type;
-

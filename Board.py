@@ -33,7 +33,7 @@ class Board(object):
             rep += '\n'
             rep += labelLetters[i]
             for j in range(0, self.__getWidth):
-                rep += self.m_Board[i][j].getType
+                rep += self.m_Board[i][j].getType[0]
         rep += '\n'
         return rep
     

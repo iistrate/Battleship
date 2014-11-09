@@ -47,7 +47,21 @@ class Game(object):
                 uInput = input("Call your shot!(ex:C5): ")
                 self.shoot(uInput[0], uInput[1])
                 self.__m_turn += 1
+                del uInput
 
     def shoot(self, y, x):
-        self.m_pBoard.getTile(y, x).setTile(TILE_TYPE["MISS"])
+        tile = self.m_pBoard.getTile(y, x)
+        tileType = tile.getType
+        tileType = tileType[1] if len(tileType) > 1 else 0
+#test types
+#        print(type(tileType), type(TILE_TYPE["EMPTY"]))
+#end test
+        if tileType == TILE_TYPE["EMPTY"]:
+            print("Shot Missed!")
+            tile.setTile(TILE_TYPE["MISS"])
+        elif tileType == TILE_TYPE["SHIP_HULL"]:
+            print("Shot Hit!")
+            tile.setTile(TILE_TYPE["HIT"])
+        else:
+            print("Already fired there! Obvious miss!")
 
