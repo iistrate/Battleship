@@ -3,14 +3,20 @@
 #   has 2 boards, one for the player one for the Ai
 #
 import Board
+
+BOARD_TYPE = dict(Player = 0, Enemy = 1)
+TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
+
 class Game(object):
     #constants
-    BOARD_TYPE = dict(Player = 0, Enemy = 1)
+
 
     ''' Game Class '''
     def __init__(self):
         self.__m_brunning = True
         self.__m_turn = 0
+        self.m_pBoard = 0
+        self.m_eBoard = 0
 
     def __str__(self):
         rep = "<Battleship Game>"
@@ -24,14 +30,24 @@ class Game(object):
         self.__m_brunning = boolean;
 
     def run(self):
-        m_pBoard = Board.Board(self.BOARD_TYPE["Player"])
-        m_eBoard = Board.Board(self.BOARD_TYPE["Enemy"])
+        #generate player and enemy boards
+        self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
+        self.m_eBoard = Board.Board(BOARD_TYPE["Enemy"])
+        #game loop
         while self.__isRunning:
-            print("Player Board: \n{}".format(m_pBoard))
-            print("Enemy Board: \n{}".format(m_eBoard))
+            #print board and menu
+            print("Player Board: \n{}".format(self.m_pBoard))
+            print("Enemy Board: \n{}".format(self.m_eBoard))
             print("Turn is {} Please enter 1 to fire or 0 to quit".format(self.__m_turn), end = ': ')
+
             uInput = input()
             if int(uInput) == 0:
                 self.__setRunning(False)
             else:
+                uInput = input("Call your shot!(ex:C5): ")
+                self.shoot(uInput[0], uInput[1])
                 self.__m_turn += 1
+
+    def shoot(self, y, x):
+        self.m_pBoard.getTile(y, x).setTile(TILE_TYPE["MISS"])
+

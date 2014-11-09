@@ -2,22 +2,26 @@
 # Board of tiles
 #
 import Tile
+
+TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
+
 class Board(object):
     '''Board of tile objects'''
-    TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
     #constructor
     def __init__(self, type):
         #member vars
+        #private
         self.__m_width = 10
         self.__m_height = 10
         self.__m_type = type
-        self.__m_Board = [[]]
+        #public
+        self.m_Board = [[]]
         #init Board
         for i in range(0, self.__getHeight):
-            self.__m_Board.append([])
+            self.m_Board.append([])
             for j in range(0, self.__getWidth):
                 #init all to blank
-                self.__m_Board[i].append(Tile.Tile(self.TILE_TYPE['EMPTY']))
+                self.m_Board[i].append(Tile.Tile(TILE_TYPE['EMPTY']))
     #rep for print
     def __str__(self):
         labelLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
@@ -29,13 +33,26 @@ class Board(object):
             rep += '\n'
             rep += labelLetters[i]
             for j in range(0, self.__getWidth):
-                rep += self.__m_Board[i][j].getType
+                rep += self.m_Board[i][j].getType
         rep += '\n'
         return rep
-
+    
     @property
     def __getWidth(self):
         return self.__m_width
     @property
     def __getHeight(self):
         return self.__m_height
+
+    def getTile(self, letter, number):
+        labelLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+        y = 0
+        x = int(number)
+        for l in labelLetters:
+            if l == letter.upper():
+                break
+            y += 1
+#test case get tile
+#        print(counter, "", number)
+#end test
+        return self.m_Board[y][x]
