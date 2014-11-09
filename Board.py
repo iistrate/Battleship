@@ -2,8 +2,10 @@
 # Board of tiles
 #
 import Tile
+import Ship
 
 TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
+BOARD_TYPE = dict(Player = 0, Enemy = 1)
 
 class Board(object):
     '''Board of tile objects'''
@@ -22,6 +24,18 @@ class Board(object):
             for j in range(0, self.__getWidth):
                 #init all to blank
                 self.m_Board[i].append(Tile.Tile(TILE_TYPE['EMPTY']))
+        if type == BOARD_TYPE["Player"]:
+            ships = ["Carrier", "Battleship", "Cruiser", "Destroyer1", "Destroyer2", "Submarine1", "Submarine2"]
+            pShips = list()
+            while len(ships) > 0:
+                print(self)
+                uInput = input("Place {} horizontal or vertical example A5H or A5V: ".format(ships[-1]))
+                posY = uInput[0]
+                posX = uInput[1]
+                orientation = uInput[2]
+                pShips.append(Ship.Ship(ships[-1], posY, posX, orientation))
+                #remove last item from list
+                ships.pop(-1)
     #rep for print
     def __str__(self):
         labelLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
@@ -56,3 +70,13 @@ class Board(object):
 #        print(counter, "", number)
 #end test
         return self.m_Board[y][x]
+
+    def setTile(self, letter, number, tile):
+        labelLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+        y = 0
+        x = int(number)
+        for l in labelLetters:
+            if l == letter.upper():
+                break
+            y += 1
+        self.m_Board[y][x] = tile

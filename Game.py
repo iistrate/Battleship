@@ -32,6 +32,7 @@ class Game(object):
     def run(self):
         #generate player and enemy boards
         self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
+        #add 5 ships to the board
         self.m_eBoard = Board.Board(BOARD_TYPE["Enemy"])
         #game loop
         while self.__isRunning:
@@ -50,7 +51,7 @@ class Game(object):
                 del uInput
 
     def shoot(self, y, x):
-        tile = self.m_pBoard.getTile(y, x)
+        tile = self.m_eBoard.getTile(y, x)
         tileType = tile.getType
         tileType = tileType[1] if len(tileType) > 1 else 0
 #test types
@@ -62,6 +63,7 @@ class Game(object):
         elif tileType == TILE_TYPE["SHIP_HULL"]:
             print("Shot Hit!")
             tile.setTile(TILE_TYPE["HIT"])
+           #
         else:
             print("Already fired there! Obvious miss!")
 
