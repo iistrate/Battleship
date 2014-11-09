@@ -14,10 +14,10 @@ class Ship(object):
         elif type == "Cruiser":
             self.__m_type = SHIP_TYPE['Cruiser']
             self.__m_hitpoints = SHIP_TYPE['Cruiser']
-        elif type == "Destroyer1" or type == "Destroyer2":
+        elif type == "Destroyer":
             self.__m_type = SHIP_TYPE['Destroyer']
             self.__m_hitpoints = SHIP_TYPE['Destroyer']
-        elif type == "Submarine1" or type == "Submarine2":
+        elif type == "Submarine":
             self.__m_type = SHIP_TYPE['Submarine']
             self.__m_hitpoints = SHIP_TYPE['Submarine']
         self.__m_posY = posY

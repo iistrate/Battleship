@@ -46,7 +46,7 @@ class Game(object):
                 self.__setRunning(False)
             else:
                 uInput = input("Call your shot!(ex:C5): ")
-                self.shoot(uInput[0], uInput[1])
+                self.shoot(self.letterToNumber(uInput[0]), uInput[1])
                 self.__m_turn += 1
                 del uInput
 
@@ -67,3 +67,12 @@ class Game(object):
         else:
             print("Already fired there! Obvious miss!")
 
+    @staticmethod
+    def letterToNumber(letter):
+        labelLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+        number = 0
+        for l in labelLetters:
+            if l.lower() == letter.lower():
+                break
+            number += 1
+        return number
