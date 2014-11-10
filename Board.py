@@ -50,11 +50,11 @@ class Board(object):
                 size = Ships[-1].getHitpoints
                 while size > 0:
                     if orientation == "h":
-                        self.m_Board[posY][posX+size].setTile(TILE_TYPE['SHIP_HULL'])
+                        self.m_Board[posY][posX+size-1].setTile(TILE_TYPE['SHIP_HULL'])
                     else:                        
-                        self.m_Board[posY+size][posX].setTile(TILE_TYPE['SHIP_HULL'])
+                        self.m_Board[posY+size-1][posX].setTile(TILE_TYPE['SHIP_HULL'])
                     size -= 1
-                #remove last item from list
+                #remove last ship from ship list
                 ships.pop(-1)
     #rep for print
     def __str__(self):
