@@ -30,7 +30,7 @@ class Board(object):
                 self.m_Board[i].append(Tile.Tile(TILE_TYPE['EMPTY']))
         if type == BOARD_TYPE["Player"] or type == BOARD_TYPE["Enemy"]:
             ships = ["Carrier", "Battleship", "Cruiser", "Destroyer", "Submarine"]
-            dice = 1#random.randrange(1,4,1)
+            dice = random.randrange(1,4,1)
 #test dice
 #            print(dice)
 #end test
@@ -65,6 +65,7 @@ class Board(object):
                 if type == BOARD_TYPE['Player']:
                     shipHull = TILE_TYPE['SHIP_HULL']
                 else:
+                                         #HIDDEN
                     shipHull = TILE_TYPE['HIDDEN']
 
                 while size > 0:
@@ -136,6 +137,9 @@ class Board(object):
                     #found ship
                     ship.takeDamage()
                     hitpoints = ship.getHitpoints
+#test hitpoints
+#                   print("Hitpoints {}".hitpoints)
+#end test
                     if (hitpoints == 0):
                         self.__m_Ships.remove(ship)
                         fleetSize = len(self.__m_Ships)
