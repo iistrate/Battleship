@@ -2,7 +2,7 @@
 # Tile 0, 1, X or W
 #
 
-TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
+TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3, HIDDEN = 4)
 
 class Tile(object):
     '''One tile'''
@@ -16,6 +16,8 @@ class Tile(object):
             self.__m_type = ('X', TILE_TYPE['HIT'])
         elif getType == TILE_TYPE['MISS']:
             self.__m_type = ('W', TILE_TYPE['MISS']) 
+        elif getType == TILE_TYPE['HIDDEN']:
+            self.__m_type = ('0', TILE_TYPE['HIDDEN']) 
     #rep for print
     def __str__(self):
         rep = ""
@@ -27,6 +29,8 @@ class Tile(object):
             rep = "X"
         elif self.getType == TILE_TYPE['MISS']:
             rep = "W"
+        elif self.getType == TILE_TYPE['HIDDEN']:
+            rep = "0"
         return rep
     #sets
     def setTile(self, type):
@@ -38,6 +42,8 @@ class Tile(object):
             self.__m_type = ('X', TILE_TYPE['HIT'])
         elif type == TILE_TYPE['MISS']:
             self.__m_type = ('W', TILE_TYPE['MISS']) 
+        elif type == TILE_TYPE['HIDDEN']:
+            self.__m_type = ('0', TILE_TYPE['HIDDEN']) 
     #gets
     @property
     def getType(self):

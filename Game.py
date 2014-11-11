@@ -5,7 +5,7 @@
 import Board
 
 BOARD_TYPE = dict(Player = 0, Enemy = 1)
-TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
+TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3, HIDDEN = 4)
 
 class Game(object):
     ''' Game Class '''
@@ -58,7 +58,7 @@ class Game(object):
         if tileType == TILE_TYPE["EMPTY"]:
             print("Shot Missed!")
             tile.setTile(TILE_TYPE["MISS"])
-        elif tileType == TILE_TYPE["SHIP_HULL"]:
+        elif tileType == TILE_TYPE["HIDDEN"]:
             print("Shot Hit!")
             tile.setTile(TILE_TYPE["HIT"])
             self.m_eBoard.hit(y, x)

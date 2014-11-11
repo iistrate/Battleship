@@ -4,9 +4,10 @@
 
 import Tile
 import Ship
+
 import random
 
-TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
+TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3, HIDDEN = 4)
 BOARD_TYPE = dict(Player = 0, Enemy = 1)
 
 class Board(object):
@@ -29,7 +30,7 @@ class Board(object):
                 self.m_Board[i].append(Tile.Tile(TILE_TYPE['EMPTY']))
         if type == BOARD_TYPE["Player"] or type == BOARD_TYPE["Enemy"]:
             ships = ["Carrier", "Battleship", "Cruiser", "Destroyer", "Submarine"]
-            dice = random.randrange(1,4,1)
+            dice = 1#random.randrange(1,4,1)
 #test dice
 #            print(dice)
 #end test
@@ -39,6 +40,7 @@ class Board(object):
                 aiships = [(3,2,"v"), (9,2,"h"), (5,0,"v"), (3,6,"h"), (7,7,"v")]
             elif dice == 3:
                 aiships = [(6,0,"h"), (0,2,"h"), (4,9,"v"), (9,4,"h"), (4,5,"v")]
+
             while len(ships) > 0:
                 if type == BOARD_TYPE["Player"]:
                     print(self)
@@ -58,11 +60,18 @@ class Board(object):
                 self.__m_Ships.append(Ship.Ship(ships[-1], posY, posX, orientation))
                 #add on map
                 size = self.__m_Ships[-1].getHitpoints
+
+                #if player show hull, if enemy hide
+                if type == BOARD_TYPE['Player']:
+                    shipHull = TILE_TYPE['SHIP_HULL']
+                else:
+                    shipHull = TILE_TYPE['HIDDEN']
+
                 while size > 0:
                     if orientation == "h":
-                        self.m_Board[posY][posX+size-1].setTile(TILE_TYPE['SHIP_HULL'])
+                        self.m_Board[posY][posX+size-1].setTile(shipHull)
                     else:                        
-                        self.m_Board[posY+size-1][posX].setTile(TILE_TYPE['SHIP_HULL'])
+                        self.m_Board[posY+size-1][posX].setTile(shipHull)
                     size -= 1
                 #remove last ship from ship list
                 ships.pop(-1)
