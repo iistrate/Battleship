@@ -28,7 +28,7 @@ class Game(object):
 
     def run(self):
         #generate player and enemy boards
-        self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
+#        self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
         #add 5 ships to the board
         self.m_eBoard = Board.Board(BOARD_TYPE["Enemy"])
         #game loop

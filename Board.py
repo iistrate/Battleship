@@ -4,6 +4,7 @@
 
 import Tile
 import Ship
+import random
 
 TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3)
 BOARD_TYPE = dict(Player = 0, Enemy = 1)
@@ -28,7 +29,16 @@ class Board(object):
                 self.m_Board[i].append(Tile.Tile(TILE_TYPE['EMPTY']))
         if type == BOARD_TYPE["Player"] or type == BOARD_TYPE["Enemy"]:
             ships = ["Carrier", "Battleship", "Cruiser", "Destroyer", "Submarine"]
-            aiships = [(0,0,"v"), (1,2,"h"), (4,5,"v"), (3,4,"h"), (0,8,"v")]
+            dice = random.randrange(1,4,1)
+#test dice
+#            print(dice)
+#end test
+            if dice == 1:
+                aiships = [(0,0,"v"), (1,2,"h"), (4,5,"v"), (3,4,"h"), (0,8,"v")]
+            elif dice == 2:
+                aiships = [(3,2,"v"), (9,2,"h"), (5,0,"v"), (3,6,"h"), (7,7,"v")]
+            elif dice == 3:
+                aiships = [(6,0,"h"), (0,2,"h"), (4,9,"v"), (9,4,"h"), (4,5,"v")]
             while len(ships) > 0:
                 if type == BOARD_TYPE["Player"]:
                     print(self)
