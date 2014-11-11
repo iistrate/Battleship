@@ -23,9 +23,16 @@ class Ship(object):
         self.__m_posY = posY
         self.__m_posX = posX
         self.__m_orientation = orientation
+        #for print purposes
+        self.__m_type = type
+        #ship size
+        self.__m_size = self.__m_hitpoints;
+
+    def __str__(self):
+        return self.__m_type
     
     def takeDamage(self):
-        self.__m_hitpoints = self.__m_hitpoints - 1 if __m_hitpoints > 0 else 0
+        self.__m_hitpoints = self.__m_hitpoints - 1 if self.__m_hitpoints > 0 else 0
 
     @property
     def getType(self):
@@ -39,3 +46,6 @@ class Ship(object):
     @property
     def getY(self):
         return self.__m_posY
+    @property
+    def getSize(self):
+        return self.__m_size

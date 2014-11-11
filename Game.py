@@ -53,6 +53,7 @@ class Game(object):
         tileType = tileType[1] if len(tileType) > 1 else 0
 #test types
 #        print(type(tileType), type(TILE_TYPE["EMPTY"]))
+#        print(tileType, TILE_TYPE["EMPTY"])
 #end test
         if tileType == TILE_TYPE["EMPTY"]:
             print("Shot Missed!")
@@ -60,7 +61,7 @@ class Game(object):
         elif tileType == TILE_TYPE["SHIP_HULL"]:
             print("Shot Hit!")
             tile.setTile(TILE_TYPE["HIT"])
-           #
+            self.m_eBoard.hit(y, x)
         else:
             print("Already fired there! Obvious miss!")
 
