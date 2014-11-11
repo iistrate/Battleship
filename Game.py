@@ -46,17 +46,21 @@ class Game(object):
                     self.__setRunning(False)
                 else:
                     uInput = input("Call your shot!(ex:C5): ")
-                    self.shoot(self.letterToNumber(uInput[0]), uInput[1])
+                    endgame = self.shoot(self.letterToNumber(uInput[0]), uInput[1])
                     del uInput
             #cpu turn
             else:
                 posY = random.randrange(0,10,1)
                 posX = random.randrange(0,10,1)
-                self.shoot(posY, posX)
+                endgame = self.shoot(posY, posX)
 
-        self.__m_turn += 1
+            if endgame:
+                print("Winner is player {}!".format((self.__m_turn % 2) + 1))
+                self.__m_brunning = False                    
+            self.__m_turn += 1
 
     def shoot(self, y, x):
+        ended = False
         #player
         if self.__m_turn % 2 == 0:
             tile = self.m_eBoard.getTile(y, x)
@@ -73,13 +77,13 @@ class Game(object):
         if tileType == TILE_TYPE["EMPTY"]:
             print("Shot Missed!")
             tile.setTile(TILE_TYPE["MISS"])
-                                    #HIDDEN
         elif tileType == TILE_TYPE["HIDDEN"] or tileType == TILE_TYPE["SHIP_HULL"]:
             print("Shot Hit!")
             tile.setTile(TILE_TYPE["HIT"])
-            self.m_eBoard.hit(y, x)
+            ended = self.m_eBoard.hit(y, x)
         else:
             print("Already fired there! Obvious miss!")
+        return ended
 
     @staticmethod
     def letterToNumber(letter):

@@ -35,7 +35,7 @@ class Board(object):
 #            print(dice)
 #end test
             if dice == 1:
-                aiships = [(0,0,"v"), (1,2,"h"), (4,5,"v"), (3,4,"h"), (0,8,"v")]
+                aiships = [(0,0,"v"), (1,2,"h"), (4,5,"v"), (3,8,"h"), (0,8,"v")]
             elif dice == 2:
                 aiships = [(3,2,"v"), (9,2,"h"), (5,0,"v"), (3,6,"h"), (7,7,"v")]
             elif dice == 3:
@@ -65,7 +65,6 @@ class Board(object):
                 if type == BOARD_TYPE['Player']:
                     shipHull = TILE_TYPE['SHIP_HULL']
                 else:
-                                         #HIDDEN
                     shipHull = TILE_TYPE['HIDDEN']
 
                 while size > 0:
@@ -147,3 +146,4 @@ class Board(object):
                             print("Ship destroyed! {} ships remaining".format(fleetSize))
                         else:
                             print("Well done, Enemy fleet obliterated!")
+                            return True
