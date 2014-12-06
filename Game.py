@@ -70,6 +70,8 @@ class Game(object):
             if endgame:
                 print("Winner is player {}!".format((self.__m_turn % 2) + 1))
                 self.__m_brunning = False    
+                #inform Arduino that game is over
+                Arduino.write("0".encode())
             else:                
                 self.__m_turn += 1
 
