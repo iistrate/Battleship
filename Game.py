@@ -3,9 +3,12 @@
 # has 2 boards, one for the player one for the Ai
 #
 import Board
-
 import random
 
+#arduino setup
+import serial
+import time
+Arduino = serial.Serial("COM3", 9600)
 
 BOARD_TYPE = dict(Player = 0, Enemy = 1)
 TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3, HIDDEN = 4)
@@ -30,6 +33,16 @@ class Game(object):
         self.__m_brunning = boolean;
 
     def run(self):
+        print("Loading please wait...")
+        #give the Arduino time to connect
+        time.sleep(3)
+        import os
+        os.system("cls")
+
+        #inform Arduino that game is on
+        if Arduino.isOpen():
+            Arduino.write('1'.encode())
+
         #generate player and enemy boards
         self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
         #add 5 ships to the board
@@ -56,8 +69,9 @@ class Game(object):
 
             if endgame:
                 print("Winner is player {}!".format((self.__m_turn % 2) + 1))
-                self.__m_brunning = False                    
-            self.__m_turn += 1
+                self.__m_brunning = False    
+            else:                
+                self.__m_turn += 1
 
     def shoot(self, y, x):
         ended = False
@@ -80,6 +94,9 @@ class Game(object):
         elif tileType == TILE_TYPE["HIDDEN"] or tileType == TILE_TYPE["SHIP_HULL"]:
             print("Shot Hit!")
             tile.setTile(TILE_TYPE["HIT"])
+            #when we hit, send ship info to Arduino
+            Arduino.write("1".encode())
+            #end Arduino
             ended = self.m_eBoard.hit(y, x)
         else:
             print("Already fired there! Obvious miss!")
