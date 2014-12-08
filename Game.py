@@ -35,16 +35,16 @@ class Game(object):
     def run(self):
         print("Loading please wait...")
         #give the Arduino time to connect
-        time.sleep(3)
+        #time.sleep(3)
         import os
         os.system("cls")
 
-        #inform Arduino that game is on
+        #inform Arduino of game status: on 1 red led, off 0 blue led
         if Arduino.isOpen():
             Arduino.write('1'.encode())
 
         #generate player and enemy boards
-        self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
+        #self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
         #add 5 ships to the board
         self.m_eBoard = Board.Board(BOARD_TYPE["Enemy"])
         #game loop
@@ -56,10 +56,11 @@ class Game(object):
             if (self.__m_turn % 2 == 0):
                 uInput = input()
                 if int(uInput) == 0:
-                    self.__setRunning(False)
+                    endgame = True
                 else:
                     uInput = input("Call your shot!(ex:C5): ")
                     endgame = self.shoot(self.letterToNumber(uInput[0]), uInput[1])
+                    #delete input
                     del uInput
             #cpu turn
             else:
@@ -68,7 +69,8 @@ class Game(object):
                 endgame = self.shoot(posY, posX)
 
             if endgame:
-                print("Winner is player {}!".format((self.__m_turn % 2) + 1))
+                if int(uInput) != 0:
+                    print("Winner is player {}!".format((self.__m_turn % 2) + 1))
                 self.__m_brunning = False    
                 #inform Arduino that game is over
                 Arduino.write("0".encode())
@@ -82,8 +84,10 @@ class Game(object):
             tile = self.m_eBoard.getTile(y, x)
         #cpu
         else:
-            tile = self.m_pBoard.getTile(y, x)
-
+            #tile = self.m_pBoard.getTile(y, x)
+            #del below
+            tile = self.m_eBoard.getTile(y, x)
+            #
         tileType = tile.getType
         tileType = tileType[1] if len(tileType) > 1 else 0
 #test types
@@ -96,9 +100,18 @@ class Game(object):
         elif tileType == TILE_TYPE["HIDDEN"] or tileType == TILE_TYPE["SHIP_HULL"]:
             print("Shot Hit!")
             tile.setTile(TILE_TYPE["HIT"])
-            #when we hit, send ship info to Arduino
-            Arduino.write("1".encode())
-            #end Arduino
+            #only on player turn
+            if self.__m_turn % 2 == 0:
+                #figure out what ship we hit
+                for ship in self.m_eBoard.getFleet():
+                    shipX = ship.getX
+                    shipY = ship.getY
+                    size = ship.getSize
+                    orientation = ship.getOrientation
+
+                #when we hit, send ship info to Arduino
+                Arduino.write("3".encode())
+                #end Arduino
             ended = self.m_eBoard.hit(y, x)
         else:
             print("Already fired there! Obvious miss!")

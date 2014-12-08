@@ -49,3 +49,6 @@ class Ship(object):
     @property
     def getSize(self):
         return self.__m_size
+    @property
+    def getOrientation(self):
+        return self.__m_orientation;

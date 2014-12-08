@@ -10,6 +10,7 @@ int val = 0;
 
 //led setup
 const int gameStatus = 11;
+const int gameOver = 12;
   //led ships
   const int submarine = 3;
   const int destroyer = 5;
@@ -22,6 +23,7 @@ void setup() {
   
   //setup leds
   pinMode(gameStatus, OUTPUT);
+  pinMode(gameOver, OUTPUT);
   pinMode(submarine, OUTPUT);
   pinMode(destroyer, OUTPUT);
   pinMode(cruiser, OUTPUT);
@@ -37,7 +39,11 @@ void loop() {
     digitalWrite(gameStatus, HIGH);
   }
   else if (val == '0') {
+    digitalWrite(gameOver, HIGH);
     digitalWrite(gameStatus, LOW);    
+  }
+  else if (val == '3') {
+    digitalWrite(submarine, HIGH);
   }
   //Serial.println(val);
   delay(1); 
