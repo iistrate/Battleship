@@ -24,12 +24,12 @@ class Ship(object):
         self.__m_posX = posX
         self.__m_orientation = orientation
         #for print purposes
-        self.__m_type = type
+        self.__m_stype = type
         #ship size
         self.__m_size = self.__m_hitpoints;
 
     def __str__(self):
-        return self.__m_type
+        return self.__sm_type
     
     def takeDamage(self):
         self.__m_hitpoints = self.__m_hitpoints - 1 if self.__m_hitpoints > 0 else 0

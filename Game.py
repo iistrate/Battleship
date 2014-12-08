@@ -12,6 +12,7 @@ Arduino = serial.Serial("COM3", 9600)
 
 BOARD_TYPE = dict(Player = 0, Enemy = 1)
 TILE_TYPE = dict(EMPTY = 0, SHIP_HULL = 1, HIT = 2, MISS = 3, HIDDEN = 4)
+SHIP_TYPE = dict(Carrier =  5, Battleship = 4, Cruiser = 3, Destroyer = 2, Submarine = 1)
 
 class Game(object):
     ''' Game Class '''
@@ -35,7 +36,7 @@ class Game(object):
     def run(self):
         print("Loading please wait...")
         #give the Arduino time to connect
-        #time.sleep(3)
+        time.sleep(3)
         import os
         os.system("cls")
 
@@ -44,7 +45,7 @@ class Game(object):
             Arduino.write('1'.encode())
 
         #generate player and enemy boards
-        #self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
+        self.m_pBoard = Board.Board(BOARD_TYPE["Player"])
         #add 5 ships to the board
         self.m_eBoard = Board.Board(BOARD_TYPE["Enemy"])
         #game loop
@@ -84,10 +85,7 @@ class Game(object):
             tile = self.m_eBoard.getTile(y, x)
         #cpu
         else:
-            #tile = self.m_pBoard.getTile(y, x)
-            #del below
-            tile = self.m_eBoard.getTile(y, x)
-            #
+            tile = self.m_pBoard.getTile(y, x)
         tileType = tile.getType
         tileType = tileType[1] if len(tileType) > 1 else 0
 #test types
@@ -103,14 +101,42 @@ class Game(object):
             #only on player turn
             if self.__m_turn % 2 == 0:
                 #figure out what ship we hit
+                shipType = 0
+
                 for ship in self.m_eBoard.getFleet():
-                    shipX = ship.getX
-                    shipY = ship.getY
+                    shipX = int(ship.getX)
+                    shipY = int(ship.getY)
+                    x = int(x)
+                    y = int(y)
                     size = ship.getSize
                     orientation = ship.getOrientation
+                    if orientation == 'h':
+                        if x >= shipX and x <= shipX + size:
+                            if y == shipY:
+                                #hit, get ship type
+                                shipType = int(ship.getType)
 
+                    elif orientation == 'v':
+                        if y >= shipY and y <= shipY + size:
+                            if x == shipX:
+                                #hit
+                                shipType = int(ship.getType)
                 #when we hit, send ship info to Arduino
-                Arduino.write("3".encode())
+                if shipType == SHIP_TYPE['Submarine']:
+                    Arduino.write("2".encode())
+                    print("hit Submarine")
+                if shipType == SHIP_TYPE['Destroyer']:
+                    Arduino.write("3".encode())
+                    print("hit Destroyer")
+                if shipType == SHIP_TYPE['Cruiser']:
+                    Arduino.write("4".encode())
+                    print("hit Cruiser")
+                if shipType == SHIP_TYPE['Battleship']:
+                    Arduino.write("5".encode())
+                    print("hit Battleship")
+                if shipType == SHIP_TYPE['Carrier']:
+                    Arduino.write("6".encode())
+                    print("hit Carrier")
                 #end Arduino
             ended = self.m_eBoard.hit(y, x)
         else:

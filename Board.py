@@ -30,8 +30,7 @@ class Board(object):
                 self.m_Board[i].append(Tile.Tile(TILE_TYPE['EMPTY']))
         if type == BOARD_TYPE["Player"] or type == BOARD_TYPE["Enemy"]:
             ships = ["Carrier", "Battleship", "Cruiser", "Destroyer", "Submarine"]
-#            dice = random.randrange(1,4,1)
-            dice = 1
+            dice = random.randrange(1,4,1)
 #test dice
 #            print(dice)
 #end test
