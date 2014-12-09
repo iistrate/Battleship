@@ -31,11 +31,13 @@ class Board(object):
         if type == BOARD_TYPE["Player"] or type == BOARD_TYPE["Enemy"]:
             ships = ["Carrier", "Battleship", "Cruiser", "Destroyer", "Submarine"]
             dice = random.randrange(1,4,1)
+            dice = 1
 #test dice
 #            print(dice)
 #end test
+            #enemy ship pre determined positions
             if dice == 1:
-                aiships = [(0,0,"v"), (1,2,"h"), (4,5,"v"), (3,8,"h"), (0,8,"v")]
+                aiships = [(0,0,"v"), (0,2,"h"), (6,0,"v"), (3,6,"v"), (0,7,"v")]
             elif dice == 2:
                 aiships = [(3,2,"v"), (9,2,"h"), (5,0,"v"), (3,6,"h"), (7,7,"v")]
             elif dice == 3:

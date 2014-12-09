@@ -5,12 +5,13 @@
  *
 */
 
-void blink(const int ship) {
-  for (int i = 0; i < 3; i++) {
+//blink funciton
+void blink(const int ship, const int blinkNr = 3) {
+  for (int i = 0; i < blinkNr; i++) {
     digitalWrite(ship, HIGH);
-    delay(200);
+    delay(150);
     digitalWrite(ship, LOW);
-    delay(200);
+    delay(150);
   }
 }
 
@@ -61,7 +62,7 @@ void loop() {
     digitalWrite(gameStatus, LOW);    
   }
   if (val == '2') {
-    sHitpoints = sHitpoints - 1 >= 0 ? sHitpoints - 1 : 0;
+    sHitpoints = (sHitpoints - 1) >= 0 ? (sHitpoints - 1) : 0;
     if (sHitpoints > 0) {
       blink(submarine);
     }
@@ -70,7 +71,7 @@ void loop() {
     } 
   }
   if (val == '3') {
-    dHitpoints = dHitpoints - 1 >= 0 ? dHitpoints - 1 : 0;
+    dHitpoints = (dHitpoints - 1) >= 0 ? (dHitpoints - 1) : 0;
     if (dHitpoints > 0) {
       blink(destroyer);
     }
@@ -79,7 +80,7 @@ void loop() {
     }   
   }
   if (val == '4') {
-    cHitpoints = cHitpoints - 1 >= 0 ? cHitpoints - 1 : 0;
+    cHitpoints = (cHitpoints - 1) >= 0 ? (cHitpoints - 1) : 0;
     if (cHitpoints > 0) {
       blink(cruiser);
     }
@@ -88,7 +89,7 @@ void loop() {
     }   
   }
   if (val == '5') {
-    bHitpoints = bHitpoints - 1 >= 0 ? bHitpoints - 1 : 0;
+    bHitpoints = (bHitpoints - 1) >= 0 ? (bHitpoints) - 1 : 0;
     if (bHitpoints > 0) {
       blink(battleship);
     }
@@ -97,7 +98,7 @@ void loop() {
     }  
   }
   if (val == '6') {
-    caHitpoints = caHitpoints - 1 >= 0 ? caHitpoints - 1 : 0;
+    caHitpoints = (caHitpoints - 1) >= 0 ? (caHitpoints - 1) : 0;
     if (caHitpoints > 0) {
       blink(carrier);
     }
@@ -105,8 +106,7 @@ void loop() {
       digitalWrite(carrier, HIGH);
     }
   }  
-  Serial.println(val);
-  delay(1); 
-  
+  //Serial.println(val);
+  delay(1);   
   turn++;
 }
