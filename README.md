@@ -1,4 +1,4 @@
 Battleship
 ==========
 
-Battleship game
+Battleship game built with Python with an added Arduino Interface
